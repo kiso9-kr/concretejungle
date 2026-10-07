@@ -1,0 +1,21 @@
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #bbb;
+}
+
+.tabs a:hover {
+  color: #666;
+}
+
+.tabs .active,
+.tabs .active:hover {
+  color: #111;
+}
+
+.divider {
+  color: #ddd;
+}

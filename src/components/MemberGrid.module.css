@@ -1,0 +1,83 @@
+/* 6칸 그리드: 첫 줄 2개(3칸씩), 둘째 줄 3개(2칸씩) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.grid li {
+  grid-column: span 2;
+}
+
+.grid li:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+
+/* 첫 줄은 3:2, 둘째 줄은 1:1 비율이라 두 줄의 높이가 같아요. */
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f2f2f2;
+}
+
+.grid li:nth-child(-n + 2) .card {
+  aspect-ratio: 3 / 2;
+}
+
+.card img,
+.placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover img,
+.card:hover .placeholder,
+.card:focus-visible img,
+.card:focus-visible .placeholder {
+  opacity: 0.35;
+}
+
+.card:hover .name,
+.card:focus-visible .name {
+  opacity: 1;
+}
+
+/* 마우스가 없는 기기(휴대폰)에서는 이름을 항상 보여줘요. */
+@media (hover: none) {
+  .name {
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 15px;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    gap: 8px;
+  }
+
+  .name {
+    font-size: 15px;
+  }
+}
