@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { ARTISTS } from '@/lib/site';
 import type { ArtistProfile } from '@/lib/types';
+import ArtistCard from './ArtistCard';
 import styles from './MemberGrid.module.css';
 
 export default function MemberGrid({ profiles }: { profiles: Map<string, ArtistProfile> }) {
@@ -11,10 +11,7 @@ export default function MemberGrid({ profiles }: { profiles: Map<string, ArtistP
           const image = profiles.get(artist.slug)?.image?.url ?? '/artist-default.jpeg';
           return (
             <li key={artist.slug}>
-              <Link href={`/artists/${artist.slug}`} className={styles.card}>
-                <img src={image} alt={artist.name} />
-                <span className={styles.name}>{artist.name}</span>
-              </Link>
+              <ArtistCard slug={artist.slug} name={artist.name} image={image} />
             </li>
           );
         })}

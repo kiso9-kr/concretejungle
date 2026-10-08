@@ -3,8 +3,9 @@
 }
 
 .logo {
-  width: 312px;
-  height: 83px;
+  width: 43.5%;
+  height: auto;
+  aspect-ratio: 312 / 83;
   object-fit: cover;
   object-position: center;
   transform: translateX(-12%);

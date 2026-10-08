@@ -76,3 +76,16 @@ textarea {
     padding: 0 16px;
   }
 }
+
+@media (min-width: 768px) {
+  .page {
+    max-width: none;
+  }
+
+  .page > header,
+  .page > .main,
+  .page > footer {
+    width: 50vw;
+    align-self: center;
+  }
+}

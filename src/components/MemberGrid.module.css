@@ -85,16 +85,15 @@
   opacity: 1;
 }
 
-/* 마우스가 없는 기기(휴대폰)에서는 이름을 항상 보여줘요. */
-@media (hover: none) {
-  .name {
-    align-items: flex-end;
-    justify-content: flex-start;
-    font-size: 15px;
-    color: #fff;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-    opacity: 1;
-  }
+.revealed img {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.revealed .name {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  opacity: 1;
 }
 
 @media (max-width: 600px) {
