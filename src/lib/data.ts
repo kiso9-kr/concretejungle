@@ -13,7 +13,7 @@ import {
   where,
   type Firestore,
 } from 'firebase/firestore/lite';
-import { firebaseConfig, emulatorsEnabled } from './firebase-config';
+import { firebaseConfig, emulatorsEnabled, isFirebaseConfigured } from './firebase-config';
 import { sortPosts, toArtistProfile, toPost } from './posts';
 import type { ArtistProfile, Post } from './types';
 import { getArtist, NEWS } from './site';
@@ -35,28 +35,33 @@ async function firestore(): Promise<Firestore> {
 }
 
 export async function getPostsByCategory(category: string): Promise<Post[]> {
+  if (!isFirebaseConfigured) return [];
   const snap = await getDocs(query(collection(await firestore(), 'posts'), where('category', '==', category)));
   return sortPosts(snap.docs.map((d) => toPost(d.id, d.data())));
 }
 
 // generateMetadata와 페이지 본문이 같은 글을 읽을 때 한 번만 조회해요.
 export const getPost = cache(async (id: string): Promise<Post | null> => {
+  if (!isFirebaseConfigured) return null;
   const snap = await getDoc(doc(await firestore(), 'posts', id));
   return snap.exists() ? toPost(snap.id, snap.data()) : null;
 });
 
 export async function getArtistProfiles(): Promise<Map<string, ArtistProfile>> {
+  if (!isFirebaseConfigured) return new Map();
   const snap = await getDocs(collection(await firestore(), 'artists'));
   return new Map(snap.docs.map((d) => [d.id, toArtistProfile(d.id, d.data())]));
 }
 
 export async function getArtistProfile(slug: string): Promise<ArtistProfile> {
+  if (!isFirebaseConfigured) return toArtistProfile(slug, undefined);
   const snap = await getDoc(doc(await firestore(), 'artists', slug));
   return toArtistProfile(slug, snap.data());
 }
 
 // News 탭 목록: News 글과 'News에도 표시'를 체크한 아티스트 글을 최신순으로 함께 보여줘요.
 export async function getNewsFeed(): Promise<Post[]> {
+  if (!isFirebaseConfigured) return [];
   const posts = collection(await firestore(), 'posts');
   const [news, shared] = await Promise.all([
     getDocs(query(posts, where('category', '==', NEWS))),

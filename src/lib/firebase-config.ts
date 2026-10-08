@@ -7,4 +7,6 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
+
 export const emulatorsEnabled = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === 'true';
