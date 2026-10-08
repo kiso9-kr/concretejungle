@@ -51,6 +51,10 @@
   overflow-wrap: anywhere;
 }
 
+.mobileExcerpt {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .item {
     gap: 14px;
@@ -64,6 +68,14 @@
 
   .title {
     font-size: 16px;
+  }
+
+  .desktopExcerpt {
+    display: none;
+  }
+
+  .mobileExcerpt {
+    display: block;
   }
 
   .excerpt {

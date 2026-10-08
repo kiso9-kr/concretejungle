@@ -16,7 +16,8 @@ export default function NewsList({ posts }: { posts: Post[] }) {
             <div>
               {post.category !== NEWS && <p className={styles.category}>{categoryLabel(post.category)}</p>}
               <h2 className={styles.title}>{post.title}</h2>
-              <p className={styles.excerpt}>{excerpt(post.content)}</p>
+              <p className={`${styles.excerpt} ${styles.desktopExcerpt}`}>{excerpt(post.content)}</p>
+              <p className={`${styles.excerpt} ${styles.mobileExcerpt}`}>{excerpt(post.content, 80)}</p>
             </div>
           </Link>
         </li>
