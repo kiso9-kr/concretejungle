@@ -54,6 +54,7 @@
 @media (max-width: 600px) {
   .item {
     gap: 14px;
+    align-items: center;
   }
 
   .thumb {
