@@ -75,6 +75,12 @@ textarea {
   .page {
     padding: 0 16px;
   }
+
+  .page:has(.home-page) {
+    min-height: 100svh;
+    justify-content: center;
+    padding-bottom: 19svh;
+  }
 }
 
 @media (min-width: 768px) {
