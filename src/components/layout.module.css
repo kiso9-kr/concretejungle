@@ -2,13 +2,29 @@
   padding: 32px 0 28px;
 }
 
+.logoLink {
+  display: block;
+  width: 33.333%;
+}
+
 .logo {
-  width: 43.5%;
+  width: 130.5%;
+  max-width: none;
   height: auto;
   aspect-ratio: 312 / 83;
   object-fit: cover;
   object-position: center;
   transform: translateX(-12%);
+}
+
+@media (max-width: 600px) {
+  .logoLink {
+    width: 50%;
+  }
+
+  .logo {
+    width: 130.5%;
+  }
 }
 
 .footer {
