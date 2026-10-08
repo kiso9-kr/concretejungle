@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PostContent from '@/components/PostContent';
+import PostImageSlider from '@/components/PostImageSlider';
 import { getNewsNeighbors, getPost } from '@/lib/data';
 import { formatDate, newsPostHref } from '@/lib/posts';
 import { getArtist, NEWS } from '@/lib/site';
@@ -43,11 +44,7 @@ export default async function PostPage({ params, searchParams }: Props) {
       </header>
 
       {post.images.length > 0 && (
-        <div className={styles.images}>
-          {post.images.map((image) => (
-            <img key={image.url} src={image.url} alt="" />
-          ))}
-        </div>
+        <PostImageSlider images={post.images.map(({ url }) => ({ url }))} />
       )}
 
       {post.content && <PostContent text={post.content} />}
