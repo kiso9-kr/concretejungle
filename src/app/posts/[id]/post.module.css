@@ -39,6 +39,19 @@
   height: auto;
 }
 
+@media (min-width: 768px) {
+  .images {
+    align-items: center;
+  }
+
+  .images img {
+    width: auto;
+    height: 50vh;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
 .links {
   display: flex;
   flex-direction: column;
