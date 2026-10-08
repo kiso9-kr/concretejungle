@@ -1,7 +1,7 @@
 export const SITE = {
   name: 'Concrete Jungle Archive',
   logo: '/logo2.png',
-  email: 'concretejungle_archive@gmail.com',
+  email: 'concretejungle.kr@gmail.com',
   instagram: 'concretejungle_archive',
 };
 
