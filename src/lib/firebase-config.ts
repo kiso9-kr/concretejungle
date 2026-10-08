@@ -9,4 +9,6 @@ export const firebaseConfig = {
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
 
+export const FIRESTORE_DATABASE_ID = 'concretejungle';
+
 export const emulatorsEnabled = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === 'true';

@@ -13,7 +13,7 @@ import {
   where,
   type Firestore,
 } from 'firebase/firestore/lite';
-import { firebaseConfig, emulatorsEnabled, isFirebaseConfigured } from './firebase-config';
+import { FIRESTORE_DATABASE_ID, firebaseConfig, emulatorsEnabled, isFirebaseConfigured } from './firebase-config';
 import { sortPosts, toArtistProfile, toPost } from './posts';
 import type { ArtistProfile, Post } from './types';
 import { getArtist, NEWS } from './site';
@@ -22,8 +22,8 @@ const APP_NAME = 'server';
 
 function db(): Firestore {
   const existing = getApps().find((app) => app.name === APP_NAME);
-  if (existing) return getFirestore(existing);
-  const firestore = getFirestore(initializeApp(firebaseConfig, APP_NAME));
+  if (existing) return getFirestore(existing, FIRESTORE_DATABASE_ID);
+  const firestore = getFirestore(initializeApp(firebaseConfig, APP_NAME), FIRESTORE_DATABASE_ID);
   if (emulatorsEnabled) connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
   return firestore;
 }

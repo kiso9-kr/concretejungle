@@ -6,9 +6,10 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { firebaseClient } from '@/lib/firebase-client';
+import { isFirebaseConfigured } from '@/lib/firebase-config';
 import styles from './admin.module.css';
 
-type Status = 'loading' | 'signedOut' | 'notAdmin' | 'admin';
+type Status = 'loading' | 'configMissing' | 'signedOut' | 'notAdmin' | 'admin';
 
 const NAV = [
   { href: '/admin', label: '글 목록' },
@@ -23,6 +24,11 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      setStatus('configMissing');
+      return;
+    }
+
     const { auth, db } = firebaseClient();
     return onAuthStateChanged(auth, async (next) => {
       setUser(next);
@@ -41,6 +47,16 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   const logout = () => signOut(firebaseClient().auth);
 
+  if (status === 'configMissing') {
+    return (
+      <div className={styles.narrow}>
+        <h1 className={styles.heading}>Firebase 설정 필요</h1>
+        <p className={styles.muted}>
+          프로젝트 루트의 <code>.env.local</code>에 Firebase 웹 앱 설정을 입력한 뒤 개발 서버를 다시 시작해 주세요.
+        </p>
+      </div>
+    );
+  }
   if (status === 'loading') return <p className={styles.muted}>불러오는 중…</p>;
   if (status === 'signedOut') return <LoginForm />;
   if (status === 'notAdmin') {

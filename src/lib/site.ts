@@ -1,6 +1,6 @@
 export const SITE = {
   name: 'Concrete Jungle Archive',
-  logo: '/logo.svg',
+  logo: '/logo2.png',
   email: 'concretejungle_archive@gmail.com',
   instagram: 'concretejungle_archive',
 };
@@ -9,7 +9,7 @@ export const SITE = {
 export const ARTISTS = [
   { slug: 'moon-go-america', name: 'Moon go America' },
   { slug: 'kiso9', name: 'Kiso9' },
-  { slug: 'xevi', name: 'Xevi' },
+  { slug: 'xevi', name: 'Xëvi' },
   { slug: 'konbu', name: 'konbu' },
   { slug: 'sejung', name: 'Sejung' },
 ] as const;

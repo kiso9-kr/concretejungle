@@ -14,7 +14,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ t
         <Link href="/" className={showNews ? undefined : styles.active} aria-current={showNews ? undefined : 'page'}>
           Members
         </Link>
-        <span className={styles.divider}>/</span>
         <Link href="/?tab=news" className={showNews ? styles.active : undefined} aria-current={showNews ? 'page' : undefined}>
           News
         </Link>
