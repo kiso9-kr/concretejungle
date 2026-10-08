@@ -1,4 +1,4 @@
-import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { firebaseClient } from './firebase-client';
 import type { StoredImage } from './types';
 
@@ -29,12 +29,29 @@ async function shrink(file: File): Promise<Blob> {
   return blob && blob.size < file.size ? blob : file;
 }
 
-export async function uploadImage(file: File, folder: string): Promise<StoredImage> {
+export async function uploadImage(
+  file: File,
+  folder: string,
+  onStatus?: (status: string) => void,
+): Promise<StoredImage> {
+  onStatus?.('이미지 처리 중…');
   const blob = await shrink(file);
   const ext = blob.type === 'image/jpeg' ? 'jpg' : (file.name.split('.').pop() ?? 'img');
   const path = `images/${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
   const fileRef = ref(firebaseClient().storage, path);
-  await uploadBytes(fileRef, blob, { contentType: blob.type || file.type });
+  const task = uploadBytesResumable(fileRef, blob, { contentType: blob.type || file.type });
+  await new Promise<void>((resolve, reject) => {
+    task.on(
+      'state_changed',
+      (snapshot) => {
+        const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        onStatus?.(`이미지 업로드 중… ${percent}%`);
+      },
+      reject,
+      resolve,
+    );
+  });
+  onStatus?.('이미지 주소 확인 중…');
   return { url: await getDownloadURL(fileRef), path };
 }
 

@@ -21,6 +21,19 @@ function normalizeUrl(url: string): string {
   return !value || /^[a-z][a-z0-9+.-]*:/i.test(value) ? value : `https://${value}`;
 }
 
+function saveErrorMessage(error: unknown): string {
+  const code = (error as { code?: string })?.code;
+  if (code === 'storage/unauthorized') {
+    return 'Storage 권한이 없어요. 기본 Firestore DB의 admins UID 문서와 Storage 규칙을 확인해 주세요.';
+  }
+  if (code === 'storage/canceled') return '이미지 업로드가 취소됐어요.';
+  if (code === 'storage/retry-limit-exceeded' || code === 'storage/unknown') {
+    return '이미지 업로드 중 네트워크 오류가 발생했어요. 연결과 Firebase Storage 설정을 확인해 주세요.';
+  }
+  if (code?.startsWith('storage/')) return `이미지 업로드 오류 (${code}). Firebase Storage 설정을 확인해 주세요.`;
+  return '저장하지 못했어요. 잠시 후 다시 시도해 주세요.';
+}
+
 export default function PostForm({ initial }: { initial?: Post }) {
   const router = useRouter();
   const [category, setCategory] = useState(initial?.category ?? NEWS);
@@ -76,8 +89,13 @@ export default function PostForm({ initial }: { initial?: Post }) {
       let uploaded = 0;
       for (const item of images) {
         if (item.file) {
-          setStatus(`이미지 업로드 중… (${++uploaded}/${total})`);
-          saved.push(await uploadImage(item.file, `posts/${id}`));
+          const imageNumber = ++uploaded;
+          setStatus(`이미지 준비 중… (${imageNumber}/${total})`);
+          saved.push(
+            await uploadImage(item.file, `posts/${id}`, (progress) => {
+              setStatus(`${progress} (${imageNumber}/${total})`);
+            }),
+          );
         } else if (item.stored) {
           saved.push(item.stored);
         }
@@ -102,7 +120,7 @@ export default function PostForm({ initial }: { initial?: Post }) {
       router.push('/admin');
     } catch (err) {
       console.error(err);
-      setStatus('저장하지 못했어요. 잠시 후 다시 시도해 주세요.');
+      setStatus(saveErrorMessage(err));
       setSaving(false);
     }
   }
