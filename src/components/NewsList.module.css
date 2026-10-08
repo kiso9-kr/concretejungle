@@ -58,6 +58,7 @@
 
   .thumb {
     width: 110px;
+    aspect-ratio: 4 / 5;
   }
 
   .title {
