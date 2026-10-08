@@ -9,7 +9,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ t
   const showNews = tab === 'news';
 
   return (
-    <>
+    <div className="home-page">
       <nav className={styles.tabs}>
         <Link href="/" className={showNews ? undefined : styles.active} aria-current={showNews ? undefined : 'page'}>
           Members
@@ -23,6 +23,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ t
       ) : (
         <MemberGrid profiles={await getArtistProfiles()} />
       )}
-    </>
+    </div>
   );
 }

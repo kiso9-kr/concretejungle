@@ -61,6 +61,11 @@ textarea {
   padding-bottom: 80px;
 }
 
+.main:has(.home-page) {
+  flex: 0 0 auto;
+  padding-bottom: 32px;
+}
+
 .empty {
   padding: 48px 0;
   color: #999;

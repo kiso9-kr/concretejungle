@@ -6,7 +6,7 @@
   --grid-gap: 12px;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: calc(33.333333cqi - 8px);
+  grid-auto-rows: calc(26.666667cqi - 6.4px);
   gap: var(--grid-gap);
 }
 
@@ -100,7 +100,7 @@
 @media (max-width: 600px) {
   .grid {
     --grid-gap: 8px;
-    grid-auto-rows: calc(33.333333cqi - 5.3333px);
+    grid-auto-rows: calc(26.666667cqi - 4.2667px);
   }
 
   .name {
