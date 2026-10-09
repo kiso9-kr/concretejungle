@@ -57,6 +57,43 @@
   border-top: 1px solid #eee;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.pageButton,
+.currentPage {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pageButton {
+  color: #999;
+}
+
+.pageButton:hover {
+  color: #555;
+}
+
+.currentPage {
+  color: #111;
+  font-weight: 700;
+  cursor: default;
+}
+
+.pageButton:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
 .item {
   display: flex;
   gap: 24px;
