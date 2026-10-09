@@ -17,6 +17,7 @@ export interface Post {
   images: StoredImage[]; // 첫 번째 이미지가 목록 썸네일
   links: PostLink[];
   showInNews: boolean; // 아티스트 글을 News 목록에도 표시
+  main: boolean; // News 상단 캐러셀에 표시
   createdAt: number;
   updatedAt: number;
 }

@@ -1,3 +1,58 @@
+.mainCarousel {
+  margin-bottom: 32px;
+}
+
+.carouselTrack {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  align-items: center;
+  height: clamp(180px, 34vh, 400px);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carouselTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselSlide {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  scroll-snap-align: center;
+}
+
+.carouselLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.carouselLink img {
+  width: auto;
+  height: auto;
+  max-height: 92%;
+  filter: drop-shadow(0 3px 8px rgb(0 0 0 / 16%));
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.carouselLink:hover img {
+  opacity: 0.7;
+}
+
+.carouselLink:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
 .list li + li {
   border-top: 1px solid #eee;
 }
@@ -56,6 +111,16 @@
 }
 
 @media (max-width: 600px) {
+  .mainCarousel {
+    margin-bottom: 24px;
+  }
+
+  .carouselTrack {
+    gap: 12px;
+    height: clamp(160px, 34vh, 320px);
+    height: clamp(160px, 34svh, 320px);
+  }
+
   .item {
     gap: 14px;
     align-items: center;

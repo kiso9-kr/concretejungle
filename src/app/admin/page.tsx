@@ -70,6 +70,7 @@ export default function AdminPostsPage() {
                 <td className={styles.nowrap}>
                   {categoryLabel(post.category)}
                   {post.showInNews && <span className={styles.muted}> · News</span>}
+                  {post.main && <span className={styles.muted}> · Main</span>}
                 </td>
                 <td>
                   <Link href={`/posts/${post.id}`} target="_blank" className={styles.underline}>

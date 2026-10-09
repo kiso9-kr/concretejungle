@@ -44,6 +44,7 @@ export default function PostForm({ initial }: { initial?: Post }) {
     (initial?.images ?? []).map((image) => ({ key: image.url, url: image.url, stored: image })),
   );
   const [showInNews, setShowInNews] = useState(initial?.showInNews ?? false);
+  const [main, setMain] = useState(initial?.main ?? false);
   const [links, setLinks] = useState<PostLink[]>(initial?.links.length ? initial.links : [EMPTY_LINK]);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
@@ -112,6 +113,7 @@ export default function PostForm({ initial }: { initial?: Post }) {
           ? []
           : links.map((link) => ({ label: link.label.trim(), url: normalizeUrl(link.url) })).filter((link) => link.url),
         showInNews: !isNews && showInNews,
+        main: (isNews || showInNews) && main,
         createdAt: initial?.createdAt || now,
         updatedAt: now,
       });
@@ -145,6 +147,13 @@ export default function PostForm({ initial }: { initial?: Post }) {
         <label className={styles.checkbox}>
           <input type="checkbox" name="showInNews" checked={showInNews} onChange={(e) => setShowInNews(e.target.checked)} />
           News에도 표시
+        </label>
+      )}
+
+      {(isNews || showInNews) && (
+        <label className={styles.checkbox}>
+          <input type="checkbox" name="main" checked={main} onChange={(e) => setMain(e.target.checked)} />
+          News 첫 줄에 표시 (Main)
         </label>
       )}
 

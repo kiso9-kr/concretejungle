@@ -25,6 +25,7 @@ export function toPost(id: string, data: Data): Post {
       .map((link: Data) => ({ label: str(link?.label), url: str(link?.url) }))
       .filter((link) => link.url),
     showInNews: data.showInNews === true,
+    main: data.main === true,
     createdAt: num(data.createdAt),
     updatedAt: num(data.updatedAt),
   };
